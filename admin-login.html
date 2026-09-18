@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        ورود مدیر | اهورا تکتاز خاورمیانس
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+</head>
+
+
+<body>
+
+<main class="admin-login-page">
+
+
+    <div class="admin-login-box">
+
+
+        <!-- LOGO -->
+
+        <div class="admin-login-logo">
+            ATK
+        </div>
+
+
+        <!-- TITLE -->
+
+        <span class="admin-login-label">
+            ADMINISTRATION PANEL
+        </span>
+
+        <h1>
+            ورود مدیر
+        </h1>
+
+        <p>
+            برای ورود به پنل مدیریت گارانتی، اطلاعات حساب خود را وارد کنید.
+        </p>
+
+
+        <!-- LOGIN FORM -->
+
+        <form id="adminLoginForm">
+
+
+            <div class="admin-input-group">
+
+                <label for="adminEmail">
+                    ایمیل مدیر
+                </label>
+
+                <input
+                    type="email"
+                    id="adminEmail"
+                    placeholder="ایمیل خود را وارد کنید"
+                    autocomplete="email"
+                    required
+                >
+
+            </div>
+
+
+            <div class="admin-input-group">
+
+                <label for="adminPassword">
+                    رمز عبور
+                </label>
+
+                <input
+                    type="password"
+                    id="adminPassword"
+                    placeholder="رمز عبور خود را وارد کنید"
+                    autocomplete="current-password"
+                    required
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="gold-button admin-login-button"
+            >
+
+                ورود به پنل
+
+                <span>
+                    ←
+                </span>
+
+            </button>
+
+
+        </form>
+
+
+        <!-- RESULT -->
+
+        <div
+            id="adminLoginResult"
+            class="result-box"
+        ></div>
+
+
+        <!-- BACK -->
+
+        <a
+            href="index.html"
+            class="admin-login-back"
+        >
+            ← بازگشت به سایت
+        </a>
+
+
+    </div>
+
+
+</main>
+
+
+<script>
+
+const SUPABASE_URL =
+    "https://zsbnrfrkjhywqupqrrvy.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_juN7qKZtLx2w5qfFDAV_0g_qIQp7Hga";
+
+
+/* =========================
+   LOAD SUPABASE
+========================= */
+
+const supabaseScript =
+    document.createElement("script");
+
+supabaseScript.src =
+    "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2";
+
+
+supabaseScript.onload = () => {
+
+    window.supabaseClient =
+        window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_KEY
+        );
+
+
+    initAdminLogin();
+
+};
+
+
+/* اضافه کردن کتابخانه */
+
+document.head.appendChild(
+    supabaseScript
+);
+
+
+/* =========================
+   ADMIN LOGIN
+========================= */
+
+function initAdminLogin() {
+
+    const form =
+        document.querySelector(
+            "#adminLoginForm"
+        );
+
+
+    const result =
+        document.querySelector(
+            "#adminLoginResult"
+        );
+
+
+    if (!form || !result) {
+        return;
+    }
+
+
+    form.addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+
+            const email =
+                document
+                    .querySelector(
+                        "#adminEmail"
+                    )
+                    .value
+                    .trim();
+
+
+            const password =
+                document
+                    .querySelector(
+                        "#adminPassword"
+                    )
+                    .value;
+
+
+            result.classList.add(
+                "active"
+            );
+
+
+            result.innerHTML = `
+                <span style="color:#e5c45a;">
+                    در حال بررسی اطلاعات ورود...
+                </span>
+            `;
+
+
+            try {
+
+                const {
+                    data,
+                    error
+                } =
+                    await window.supabaseClient
+                        .auth
+                        .signInWithPassword({
+
+                            email:
+                                email,
+
+                            password:
+                                password
+
+                        });
+
+
+                if (error) {
+
+                    throw error;
+
+                }
+
+
+                if (
+                    !data ||
+                    !data.user
+                ) {
+
+                    throw new Error(
+                        "ورود انجام نشد."
+                    );
+
+                }
+
+
+                result.innerHTML = `
+                    <span style="color:#7ed957;">
+                        ✓ ورود با موفقیت انجام شد.
+                    </span>
+                `;
+
+
+                setTimeout(
+                    () => {
+
+                        window.location.href =
+                            "admin.html";
+
+                    },
+                    500
+                );
+
+
+            }
+            catch(error) {
+
+                console.error(
+                    "ADMIN LOGIN ERROR:",
+                    error
+                );
+
+
+                result.innerHTML = `
+
+                    <div style="
+                        color:#e5c45a;
+                        font-weight:700;
+                    ">
+                        ورود ناموفق بود
+                    </div>
+
+                    <div style="
+                        margin-top:8px;
+                        color:#aaa;
+                        font-size:12px;
+                    ">
+                        ایمیل یا رمز عبور صحیح نیست.
+                    </div>
+
+                `;
+
+            }
+
+        }
+    );
+
+}
+
+</script>
+
+</body>
+
+</html>
