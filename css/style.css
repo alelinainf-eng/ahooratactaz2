@@ -34,7 +34,6 @@ input {
     flex-direction: column;
     justify-content: center;
 }
-/* HEADER */
 .header {
     position: absolute;
     top: 30px;
@@ -85,7 +84,6 @@ input {
     border-color: #c9a227;
     color: #e5c45a;
 }
-/* WELCOME */
 .welcome {
     text-align: center;
     margin-bottom: 30px;
@@ -99,7 +97,6 @@ input {
     font-size: 30px;
     font-weight: 800;
 }
-/* SERVICES */
 .services-grid {
     width: min(850px, 100%);
     margin: 0 auto;
@@ -118,10 +115,7 @@ input {
     gap: 14px;
     position: relative;
     overflow: hidden;
-    transition:
-        transform .3s ease,
-        border-color .3s ease,
-        background .3s ease;
+    transition: .3s;
 }
 .service-card::before {
     content: "";
@@ -144,11 +138,7 @@ input {
     transform: scaleX(1);
 }
 .gold-card {
-    background: linear-gradient(
-        145deg,
-        #17140b,
-        #11100d
-    );
+    background: linear-gradient(145deg, #17140b, #11100d);
 }
 .icon {
     font-size: 28px;
@@ -218,16 +208,8 @@ input {
     border-color: #c9a227;
 }
 /* =========================
-   PAGE CONTENT
+   PAGE TITLE
 ========================= */
-.page-content {
-    width: min(520px, 100%);
-    position: absolute;
-    top: 50%;
-    right: 50%;
-    transform: translate(50%, -50%);
-    text-align: center;
-}
 .page-title span {
     color: #c9a227;
     font-size: 10px;
@@ -240,10 +222,21 @@ input {
 .page-title p {
     color: #777;
     font-size: 12px;
-    margin-bottom: 28px;
+    margin-bottom: 25px;
 }
 /* =========================
-   FORM
+   NORMAL PAGE
+========================= */
+.page-content {
+    width: min(520px, 100%);
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+    text-align: center;
+}
+/* =========================
+   FORMS
 ========================= */
 .warranty-form {
     background: #111;
@@ -269,7 +262,6 @@ input {
     outline: none;
     color: #fff;
     padding: 0 15px;
-    font-family: inherit;
     font-size: 12px;
     transition: .3s;
 }
@@ -280,7 +272,7 @@ input {
     border-color: #c9a227;
 }
 /* =========================
-   GOLD BUTTON
+   BUTTON
 ========================= */
 .gold-button {
     width: 100%;
@@ -288,7 +280,6 @@ input {
     border: none;
     background: #c9a227;
     color: #080808;
-    font-family: inherit;
     font-size: 13px;
     font-weight: 700;
     cursor: pointer;
@@ -365,7 +356,6 @@ input {
 }
 .service-item h3 {
     font-size: 13px;
-    color: #f5f5f5;
     margin-bottom: 4px;
 }
 .service-item p {
@@ -376,21 +366,13 @@ input {
     margin-right: auto;
     color: #c9a227;
     font-size: 20px;
-    transition: .3s;
-}
-.service-item:hover .service-arrow {
-    transform: translateX(-5px);
 }
 .gold-service {
     border-color: #6d5a1b;
-    background: linear-gradient(
-        90deg,
-        #15130d,
-        #111
-    );
+    background: linear-gradient(90deg, #15130d, #111);
 }
 /* =========================
-   CONTACT PAGE
+   CONTACT
 ========================= */
 .contact-page-content {
     width: min(700px, 100%);
@@ -449,7 +431,7 @@ input {
     font-weight: 500;
 }
 /* =========================
-   CART PAGE
+   CART
 ========================= */
 .cart-page-content {
     width: min(720px, 100%);
@@ -499,10 +481,8 @@ input {
     background: #080808;
     border: 1px solid #292929;
     font-size: 20px;
-    transition: .3s;
 }
 .cart-service-info h3 {
-    color: #eee;
     font-size: 12px;
     margin-bottom: 5px;
 }
@@ -523,15 +503,10 @@ input {
     border: 1px solid #333;
     color: transparent;
     font-size: 12px;
-    transition: .3s;
 }
 .cart-service:has(input:checked) {
     border-color: #c9a227;
-    background: linear-gradient(
-        145deg,
-        #18150b,
-        #111
-    );
+    background: linear-gradient(145deg, #18150b, #111);
 }
 .cart-service:has(input:checked) .cart-service-icon {
     border-color: #c9a227;
@@ -563,17 +538,122 @@ input {
 }
 .cart-summary strong {
     color: #e5c45a;
-    font-size: 12px;
 }
 .cart-bottom .gold-button {
     width: 230px;
     flex-shrink: 0;
 }
-#cartResult {
+/* =========================
+   CHECKOUT
+========================= */
+.checkout-page-content {
+    width: min(760px, 100%);
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+}
+.checkout-page-content .page-title {
+    text-align: center;
+    margin-bottom: 18px;
+}
+.checkout-box {
+    background: #111;
+    border: 1px solid #292929;
+    padding: 18px;
+    margin-bottom: 12px;
+}
+.checkout-box-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #242424;
+}
+.checkout-box-title span {
+    color: #ccc;
+    font-size: 12px;
+    font-weight: 600;
+}
+.checkout-box-title strong {
+    color: #e5c45a;
+    font-size: 11px;
+}
+.selected-services {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+.selected-service-item {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 9px 12px;
+    background: #090909;
+    border: 1px solid #242424;
+    color: #ddd;
+    font-size: 10px;
+}
+.selected-service-icon {
+    width: 23px;
+    height: 23px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #c9a227;
+    color: #080808;
+    font-weight: 800;
+    font-size: 11px;
+}
+.empty-cart {
+    grid-column: 1 / -1;
+    padding: 15px;
+    color: #666;
+    text-align: center;
+    font-size: 11px;
+}
+.checkout-fields {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+.checkout-input {
     text-align: right;
 }
+.checkout-input.full-width {
+    grid-column: 1 / -1;
+}
+.checkout-input label {
+    display: block;
+    color: #aaa;
+    font-size: 10px;
+    margin-bottom: 6px;
+}
+.checkout-input input {
+    width: 100%;
+    height: 43px;
+    padding: 0 12px;
+    background: #090909;
+    border: 1px solid #292929;
+    outline: none;
+    color: #fff;
+    font-size: 11px;
+    transition: .3s;
+}
+.checkout-input input::placeholder {
+    color: #555;
+}
+.checkout-input input:focus {
+    border-color: #c9a227;
+}
+.checkout-box .gold-button {
+    margin-top: 14px;
+}
 /* =========================
-   RESPONSIVE
+   MOBILE
 ========================= */
 @media (max-width: 700px) {
     .dashboard {
@@ -598,9 +678,6 @@ input {
         padding: 9px 12px;
         font-size: 11px;
     }
-    .welcome {
-        margin-bottom: 20px;
-    }
     .welcome h2 {
         font-size: 24px;
     }
@@ -621,37 +698,22 @@ input {
     .page-brand h1 {
         font-size: 13px;
     }
-    .page-content {
-        width: calc(100% - 36px);
-    }
     .page-title h2 {
         font-size: 25px;
+    }
+    .page-content {
+        width: calc(100% - 36px);
     }
     .warranty-form {
         padding: 22px;
     }
-    .services-page-content {
-        width: calc(100% - 36px);
-    }
-    .service-item {
-        padding: 12px;
-    }
-    .service-item-icon {
-        width: 43px;
-        height: 43px;
-        margin-left: 12px;
-    }
-    .contact-page-content {
+    .services-page-content,
+    .contact-page-content,
+    .cart-page-content {
         width: calc(100% - 36px);
     }
     .contact-grid {
         grid-template-columns: 1fr;
-    }
-    .contact-card-item {
-        min-height: 80px;
-    }
-    .cart-page-content {
-        width: calc(100% - 36px);
     }
     .cart-services {
         grid-template-columns: 1fr;
@@ -661,25 +723,23 @@ input {
         min-height: 72px;
         padding: 10px;
     }
-    .cart-service-icon {
-        width: 40px;
-        height: 40px;
-        margin-left: 10px;
-    }
-    .cart-service-info h3 {
-        font-size: 11px;
-    }
-    .cart-service-info p {
-        font-size: 8px;
-    }
     .cart-bottom {
         flex-direction: column;
     }
-    .cart-summary {
-        width: 100%;
-        min-height: 43px;
-    }
+    .cart-summary,
     .cart-bottom .gold-button {
         width: 100%;
+    }
+    .checkout-page-content {
+        width: calc(100% - 36px);
+    }
+    .selected-services {
+        grid-template-columns: 1fr;
+    }
+    .checkout-fields {
+        grid-template-columns: 1fr;
+    }
+    .checkout-input.full-width {
+        grid-column: auto;
     }
 }
