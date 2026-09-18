@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ثبت نهایی خدمات | اهورا تکتاز خاورمیانس</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<main class="inner-page">
+
+    <!-- HEADER -->
+
+    <header class="inner-header">
+
+        <a href="cart.html" class="back-btn">
+            ← بازگشت
+        </a>
+
+        <div class="page-brand">
+
+            <div class="mini-logo">
+                ATK
+            </div>
+
+            <div>
+                <h1>اهورا تکتاز خاورمیانس</h1>
+                <span>سامانه خدمات و گارانتی</span>
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- CHECKOUT -->
+
+    <section class="checkout-page-content">
+
+        <div class="page-title">
+
+            <span>FINAL REGISTRATION</span>
+
+            <h2>
+                ثبت نهایی خدمات
+            </h2>
+
+            <p>
+                اطلاعات خود را وارد کرده و خدمات انتخابی را تأیید کنید.
+            </p>
+
+        </div>
+
+
+        <!-- SELECTED SERVICES -->
+
+        <div class="checkout-box">
+
+            <div class="checkout-box-title">
+
+                <span>
+                    خدمات انتخاب‌شده
+                </span>
+
+                <strong id="checkoutCount">
+                    ۰ مورد
+                </strong>
+
+            </div>
+
+
+            <div id="selectedServices" class="selected-services">
+
+                <div class="empty-cart">
+                    هنوز خدمتی انتخاب نشده است.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- CUSTOMER INFORMATION -->
+
+        <form id="checkoutForm" class="checkout-box">
+
+            <div class="checkout-box-title">
+
+                <span>
+                    اطلاعات مشتری
+                </span>
+
+            </div>
+
+
+            <div class="checkout-fields">
+
+                <div class="checkout-input">
+
+                    <label for="checkoutName">
+                        نام و نام خانوادگی
+                    </label>
+
+                    <input
+                        type="text"
+                        id="checkoutName"
+                        placeholder="نام و نام خانوادگی"
+                        autocomplete="name"
+                    >
+
+                </div>
+
+
+                <div class="checkout-input">
+
+                    <label for="checkoutPhone">
+                        شماره تماس
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="checkoutPhone"
+                        placeholder="09xxxxxxxxx"
+                        autocomplete="tel"
+                    >
+
+                </div>
+
+
+                <div class="checkout-input full-width">
+
+                    <label for="checkoutSerial">
+                        شماره سریال قطعه
+                    </label>
+
+                    <input
+                        type="text"
+                        id="checkoutSerial"
+                        placeholder="شماره سریال قطعه"
+                        autocomplete="off"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="gold-button"
+            >
+                تأیید و ادامه
+                <span>←</span>
+            </button>
+
+        </form>
+
+
+        <div
+            id="checkoutResult"
+            class="result-box"
+        ></div>
+
+    </section>
+
+</main>
+
+
+<script src="js/script.js"></script>
+
+</body>
+</html>
