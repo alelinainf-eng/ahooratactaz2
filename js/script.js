@@ -40,7 +40,6 @@ document.head.appendChild(supabaseScript);
 
 function initWebsite() {
 
-
     /* =========================
        WARRANTY CHECK
     ========================= */
@@ -50,7 +49,6 @@ function initWebsite() {
 
     const warrantyResult =
         document.querySelector("#result");
-
 
     if (
         warrantyForm &&
@@ -65,13 +63,11 @@ function initWebsite() {
 
                 event.preventDefault();
 
-
                 const serial =
                     document
                         .querySelector("#serial")
                         .value
                         .trim();
-
 
                 const code =
                     document
@@ -79,11 +75,9 @@ function initWebsite() {
                         .value
                         .trim();
 
-
                 warrantyResult.classList.add(
                     "active"
                 );
-
 
                 if (!serial || !code) {
 
@@ -96,7 +90,6 @@ function initWebsite() {
                     return;
                 }
 
-
                 warrantyResult.innerHTML = `
                     <strong style="color:#e5c45a;">
                         اطلاعات دریافت شد.
@@ -105,7 +98,6 @@ function initWebsite() {
 
             }
         );
-
     }
 
 
@@ -118,18 +110,15 @@ function initWebsite() {
             ".cart-service input"
         );
 
-
     const cartCount =
         document.querySelector(
             "#cartCount"
         );
 
-
     const continueCart =
         document.querySelector(
             "#continueCart"
         );
-
 
     const cartResult =
         document.querySelector(
@@ -154,10 +143,8 @@ function initWebsite() {
 
         if (!cartCount) return;
 
-
         const selected =
             getSelectedServices();
-
 
         cartCount.textContent =
             `${selected.length.toLocaleString("fa-IR")} مورد`;
@@ -183,7 +170,6 @@ function initWebsite() {
 
                 event.preventDefault();
 
-
                 const selected =
                     getSelectedServices();
 
@@ -197,7 +183,6 @@ function initWebsite() {
                         cartResult.classList.add(
                             "active"
                         );
-
 
                         cartResult.innerHTML = `
                             <span style="color:#e5c45a;">
@@ -239,18 +224,15 @@ function initWebsite() {
             "#selectedServices"
         );
 
-
     const checkoutCount =
         document.querySelector(
             "#checkoutCount"
         );
 
-
     const checkoutForm =
         document.querySelector(
             "#checkoutForm"
         );
-
 
     const checkoutResult =
         document.querySelector(
@@ -278,7 +260,6 @@ function initWebsite() {
 
 
     if (selectedServicesBox) {
-
 
         if (checkoutCount) {
 
@@ -381,7 +362,6 @@ function initWebsite() {
                         "active"
                     );
 
-
                     checkoutResult.innerHTML = `
                         <span style="color:#e5c45a;">
                             هیچ خدمتی انتخاب نشده است.
@@ -402,7 +382,6 @@ function initWebsite() {
                     checkoutResult.classList.add(
                         "active"
                     );
-
 
                     checkoutResult.innerHTML = `
                         <span style="color:#e5c45a;">
@@ -431,13 +410,12 @@ function initWebsite() {
 
 
                 /* =========================
-                   SHOW LOADING
+                   LOADING
                 ========================= */
 
                 checkoutResult.classList.add(
                     "active"
                 );
-
 
                 checkoutResult.innerHTML = `
                     <span style="color:#e5c45a;">
@@ -453,7 +431,6 @@ function initWebsite() {
                 try {
 
                     const {
-                        data,
                         error
                     } =
                         await window.supabaseClient
@@ -462,7 +439,6 @@ function initWebsite() {
                             )
                             .insert([
                                 {
-
                                     tracking_code:
                                         trackingCode,
 
@@ -480,10 +456,8 @@ function initWebsite() {
 
                                     status:
                                         "در حال بررسی"
-
                                 }
-                            ])
-                            .select();
+                            ]);
 
 
                     if (error) {
@@ -540,7 +514,7 @@ function initWebsite() {
 
 
                     /* =========================
-                       GO TO SUCCESS
+                       SUCCESS
                     ========================= */
 
                     window.location.assign(
@@ -551,6 +525,7 @@ function initWebsite() {
                 } catch (error) {
 
                     console.error(
+                        "Supabase error:",
                         error
                     );
 
