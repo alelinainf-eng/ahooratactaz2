@@ -31,6 +31,25 @@ supabaseScript.onload = () => {
 
 };
 
+supabaseScript.onerror = () => {
+
+    const result =
+        document.querySelector("#checkoutResult");
+
+    if (result) {
+
+        result.classList.add("active");
+
+        result.innerHTML = `
+            <div style="color:#e5c45a;">
+                کتابخانه Supabase بارگذاری نشد.
+            </div>
+        `;
+
+    }
+
+};
+
 document.head.appendChild(supabaseScript);
 
 
@@ -39,6 +58,7 @@ document.head.appendChild(supabaseScript);
 ========================= */
 
 function initWebsite() {
+
 
     /* =========================
        WARRANTY CHECK
@@ -49,6 +69,7 @@ function initWebsite() {
 
     const warrantyResult =
         document.querySelector("#result");
+
 
     if (
         warrantyForm &&
@@ -63,11 +84,13 @@ function initWebsite() {
 
                 event.preventDefault();
 
+
                 const serial =
                     document
                         .querySelector("#serial")
                         .value
                         .trim();
+
 
                 const code =
                     document
@@ -75,9 +98,11 @@ function initWebsite() {
                         .value
                         .trim();
 
+
                 warrantyResult.classList.add(
                     "active"
                 );
+
 
                 if (!serial || !code) {
 
@@ -88,7 +113,9 @@ function initWebsite() {
                     `;
 
                     return;
+
                 }
+
 
                 warrantyResult.innerHTML = `
                     <strong style="color:#e5c45a;">
@@ -98,6 +125,7 @@ function initWebsite() {
 
             }
         );
+
     }
 
 
@@ -110,15 +138,18 @@ function initWebsite() {
             ".cart-service input"
         );
 
+
     const cartCount =
         document.querySelector(
             "#cartCount"
         );
 
+
     const continueCart =
         document.querySelector(
             "#continueCart"
         );
+
 
     const cartResult =
         document.querySelector(
@@ -143,8 +174,10 @@ function initWebsite() {
 
         if (!cartCount) return;
 
+
         const selected =
             getSelectedServices();
+
 
         cartCount.textContent =
             `${selected.length.toLocaleString("fa-IR")} مورد`;
@@ -170,6 +203,7 @@ function initWebsite() {
 
                 event.preventDefault();
 
+
                 const selected =
                     getSelectedServices();
 
@@ -184,6 +218,7 @@ function initWebsite() {
                             "active"
                         );
 
+
                         cartResult.innerHTML = `
                             <span style="color:#e5c45a;">
                                 لطفاً حداقل یک خدمت را انتخاب کنید.
@@ -193,6 +228,7 @@ function initWebsite() {
                     }
 
                     return;
+
                 }
 
 
@@ -224,15 +260,18 @@ function initWebsite() {
             "#selectedServices"
         );
 
+
     const checkoutCount =
         document.querySelector(
             "#checkoutCount"
         );
 
+
     const checkoutForm =
         document.querySelector(
             "#checkoutForm"
         );
+
 
     const checkoutResult =
         document.querySelector(
@@ -362,6 +401,7 @@ function initWebsite() {
                         "active"
                     );
 
+
                     checkoutResult.innerHTML = `
                         <span style="color:#e5c45a;">
                             هیچ خدمتی انتخاب نشده است.
@@ -382,6 +422,7 @@ function initWebsite() {
                     checkoutResult.classList.add(
                         "active"
                     );
+
 
                     checkoutResult.innerHTML = `
                         <span style="color:#e5c45a;">
@@ -417,6 +458,7 @@ function initWebsite() {
                     "active"
                 );
 
+
                 checkoutResult.innerHTML = `
                     <span style="color:#e5c45a;">
                         در حال ثبت درخواست...
@@ -425,7 +467,26 @@ function initWebsite() {
 
 
                 /* =========================
-                   INSERT INTO SUPABASE
+                   CHECK SUPABASE
+                ========================= */
+
+                if (
+                    !window.supabaseClient
+                ) {
+
+                    checkoutResult.innerHTML = `
+                        <div style="color:#e5c45a;">
+                            اتصال به Supabase برقرار نشد.
+                        </div>
+                    `;
+
+                    return;
+
+                }
+
+
+                /* =========================
+                   INSERT
                 ========================= */
 
                 try {
@@ -462,18 +523,13 @@ function initWebsite() {
 
                     if (error) {
 
-                        console.error(
-                            "Supabase error:",
-                            error
-                        );
-
                         throw error;
 
                     }
 
 
                     /* =========================
-                       SAVE TEMPORARY DATA
+                       SAVE LOCAL DATA
                     ========================= */
 
                     localStorage.setItem(
@@ -525,24 +581,44 @@ function initWebsite() {
                 } catch (error) {
 
                     console.error(
-                        "Supabase error:",
+                        "SUPABASE ERROR:",
                         error
                     );
 
 
+                    const errorMessage =
+                        error?.message ||
+                        error?.details ||
+                        error?.hint ||
+                        "Unknown error";
+
+
                     checkoutResult.innerHTML = `
 
-                        <span style="color:#e5c45a;">
-                            ثبت درخواست انجام نشد.
-                        </span>
+                        <div style="
+                            color:#e5c45a;
+                            font-size:13px;
+                            font-weight:700;
+                            margin-bottom:10px;
+                        ">
+                            خطای اتصال
+                        </div>
+
 
                         <div style="
                             margin-top:8px;
-                            color:#777;
+                            padding:12px;
+                            background:#090909;
+                            border:1px solid #292929;
+                            color:#aaa;
+                            direction:ltr;
+                            text-align:left;
+                            word-break:break-word;
+                            line-height:1.8;
+                            font-family:monospace;
                             font-size:10px;
                         ">
-                            اتصال به سامانه با مشکل مواجه شد.
-                            لطفاً دوباره تلاش کنید.
+                            ${errorMessage}
                         </div>
 
                     `;
