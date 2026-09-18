@@ -105,20 +105,25 @@ document.addEventListener("DOMContentLoaded", () => {
     const trackingResult =
         document.querySelector("#trackingResult");
 
+
     if (trackingForm && trackingResult) {
 
         trackingForm.addEventListener("submit", function (event) {
 
             event.preventDefault();
 
-            const trackingCode =
+            const enteredCode =
                 document
                     .querySelector("#trackingCode")
-                    ?.value.trim();
+                    ?.value
+                    .trim()
+                    .toUpperCase();
+
 
             trackingResult.classList.add("active");
 
-            if (!trackingCode) {
+
+            if (!enteredCode) {
 
                 trackingResult.innerHTML = `
                     <span style="color:#e5c45a;">
@@ -129,11 +134,165 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
+
+            let requestData = null;
+
+            try {
+
+                requestData =
+                    JSON.parse(
+                        localStorage.getItem(
+                            "warrantyRequest"
+                        )
+                    );
+
+            } catch {
+
+                requestData = null;
+
+            }
+
+
+            if (
+                !requestData ||
+                requestData.trackingCode !== enteredCode
+            ) {
+
+                trackingResult.innerHTML = `
+                    <div style="color:#e5c45a;">
+                        کد پیگیری پیدا نشد.
+                    </div>
+
+                    <div style="
+                        margin-top:8px;
+                        color:#777;
+                        line-height:2;
+                    ">
+                        لطفاً کد پیگیری را بررسی کرده و دوباره وارد کنید.
+                    </div>
+                `;
+
+                return;
+            }
+
+
+            /* =========================
+               SHOW REQUEST
+            ========================= */
+
+            const services =
+                requestData.services || [];
+
+
             trackingResult.innerHTML = `
-                <strong style="color:#e5c45a;">
-                    در حال بررسی درخواست...
-                </strong>
+
+                <div style="
+                    text-align:right;
+                    line-height:2;
+                ">
+
+                    <div style="
+                        color:#e5c45a;
+                        font-size:15px;
+                        font-weight:700;
+                        margin-bottom:12px;
+                    ">
+                        ✓ درخواست شما پیدا شد
+                    </div>
+
+
+                    <div style="
+                        border-bottom:1px solid #292929;
+                        padding:7px 0;
+                    ">
+                        <span style="color:#777;">
+                            نام:
+                        </span>
+
+                        <strong>
+                            ${requestData.name}
+                        </strong>
+                    </div>
+
+
+                    <div style="
+                        border-bottom:1px solid #292929;
+                        padding:7px 0;
+                    ">
+                        <span style="color:#777;">
+                            شماره تماس:
+                        </span>
+
+                        <strong>
+                            ${requestData.phone}
+                        </strong>
+                    </div>
+
+
+                    <div style="
+                        border-bottom:1px solid #292929;
+                        padding:7px 0;
+                    ">
+                        <span style="color:#777;">
+                            سریال قطعه:
+                        </span>
+
+                        <strong>
+                            ${requestData.serial}
+                        </strong>
+                    </div>
+
+
+                    <div style="
+                        border-bottom:1px solid #292929;
+                        padding:7px 0;
+                    ">
+                        <span style="color:#777;">
+                            کد پیگیری:
+                        </span>
+
+                        <strong style="color:#e5c45a;">
+                            ${requestData.trackingCode}
+                        </strong>
+                    </div>
+
+
+                    <div style="
+                        padding:10px 0 0;
+                    ">
+
+                        <span style="color:#777;">
+                            خدمات:
+                        </span>
+
+                        <div style="
+                            margin-top:6px;
+                            color:#ddd;
+                        ">
+                            ${services.map(service => `
+                                <div>
+                                    ✓ ${service}
+                                </div>
+                            `).join("")}
+                        </div>
+
+                    </div>
+
+
+                    <div style="
+                        margin-top:14px;
+                        padding:10px;
+                        background:#090909;
+                        border:1px solid #292929;
+                        color:#c9a227;
+                        text-align:center;
+                    ">
+                        وضعیت درخواست: در حال بررسی
+                    </div>
+
+                </div>
             `;
+
         });
     }
 
@@ -386,8 +545,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     "ATK-" + randomNumber;
 
 
-                /* ذخیره اطلاعات */
-
                 const requestData = {
 
                     trackingCode: trackingCode,
@@ -418,8 +575,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     trackingCode
                 );
 
-
-                /* انتقال به صفحه موفقیت */
 
                 window.location.assign(
                     "success.html"
