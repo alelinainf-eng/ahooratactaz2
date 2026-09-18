@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 
     /* =========================
-       DASHBOARD CARDS
+       DASHBOARD
     ========================= */
 
     const cards = document.querySelectorAll(".service-card");
@@ -93,6 +93,47 @@ document.addEventListener("DOMContentLoaded", () => {
             `;
 
             requestForm.reset();
+
+        });
+    }
+
+
+    /* =========================
+       REQUEST TRACKING
+    ========================= */
+
+    const trackingForm = document.querySelector("#trackingForm");
+    const trackingResult = document.querySelector("#trackingResult");
+
+    if (trackingForm && trackingResult) {
+
+        trackingForm.addEventListener("submit", function (event) {
+
+            event.preventDefault();
+
+            const trackingCode =
+                document.querySelector("#trackingCode")?.value.trim();
+
+            if (!trackingCode) {
+
+                trackingResult.classList.add("active");
+
+                trackingResult.innerHTML = `
+                    <span style="color:#e5c45a;">
+                        لطفاً کد پیگیری را وارد کنید.
+                    </span>
+                `;
+
+                return;
+            }
+
+            trackingResult.classList.add("active");
+
+            trackingResult.innerHTML = `
+                <strong style="color:#e5c45a;">
+                    در حال بررسی درخواست...
+                </strong>
+            `;
 
         });
     }
