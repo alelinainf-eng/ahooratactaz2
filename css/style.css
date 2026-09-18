@@ -260,3 +260,237 @@ a {
         grid-column: span 2;
     }
 }
+/* =========================
+   INNER PAGES
+========================= */
+
+.inner-page {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background: #080808;
+    position: relative;
+    padding: 30px 6%;
+}
+
+.inner-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.page-brand {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.page-brand h1 {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.page-brand span {
+    display: block;
+    color: #777;
+    font-size: 10px;
+    margin-top: 3px;
+}
+
+.mini-logo {
+    width: 45px;
+    height: 45px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #c9a227;
+    color: #e5c45a;
+
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.back-btn {
+    border: 1px solid #292929;
+    padding: 10px 17px;
+
+    color: #aaa;
+    background: #111;
+
+    font-size: 12px;
+
+    transition: .3s;
+}
+
+.back-btn:hover {
+    color: #e5c45a;
+    border-color: #c9a227;
+}
+
+
+/* CONTENT */
+
+.page-content {
+    width: min(520px, 100%);
+
+    position: absolute;
+    top: 50%;
+    right: 50%;
+
+    transform: translate(50%, -50%);
+
+    text-align: center;
+}
+
+.page-title span {
+    color: #c9a227;
+    font-size: 10px;
+    letter-spacing: 3px;
+}
+
+.page-title h2 {
+    font-size: 30px;
+    margin: 8px 0;
+}
+
+.page-title p {
+    color: #777;
+    font-size: 12px;
+    margin-bottom: 28px;
+}
+
+
+/* FORM */
+
+.warranty-form {
+    background: #111;
+    border: 1px solid #242424;
+
+    padding: 28px;
+
+    text-align: right;
+
+    box-shadow: 0 20px 60px rgba(0,0,0,.35);
+}
+
+.input-group {
+    margin-bottom: 18px;
+}
+
+.input-group label {
+    display: block;
+
+    color: #bbb;
+    font-size: 12px;
+
+    margin-bottom: 8px;
+}
+
+.input-group input {
+    width: 100%;
+    height: 48px;
+
+    background: #090909;
+    border: 1px solid #292929;
+
+    outline: none;
+
+    color: #fff;
+
+    padding: 0 15px;
+
+    font-family: inherit;
+    font-size: 12px;
+
+    transition: .3s;
+}
+
+.input-group input::placeholder {
+    color: #555;
+}
+
+.input-group input:focus {
+    border-color: #c9a227;
+}
+
+
+/* BUTTON */
+
+.gold-button {
+    width: 100%;
+    height: 50px;
+
+    border: none;
+
+    background: #c9a227;
+    color: #080808;
+
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: .3s;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.gold-button:hover {
+    background: #e5c45a;
+}
+
+.gold-button span {
+    font-size: 18px;
+}
+
+
+/* RESULT */
+
+.result-box {
+    display: none;
+
+    margin-top: 15px;
+    padding: 15px;
+
+    border: 1px solid #292929;
+    background: #111;
+
+    font-size: 12px;
+}
+
+.result-box.active {
+    display: block;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    .inner-page {
+        padding: 20px 18px;
+    }
+
+    .page-brand h1 {
+        font-size: 13px;
+    }
+
+    .page-content {
+        width: calc(100% - 36px);
+    }
+
+    .page-title h2 {
+        font-size: 25px;
+    }
+
+    .warranty-form {
+        padding: 22px;
+    }
+}
