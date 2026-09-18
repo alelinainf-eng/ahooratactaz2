@@ -31,25 +31,6 @@ supabaseScript.onload = () => {
 
 };
 
-supabaseScript.onerror = () => {
-
-    const result =
-        document.querySelector("#checkoutResult");
-
-    if (result) {
-
-        result.classList.add("active");
-
-        result.innerHTML = `
-            <div style="color:#e5c45a;">
-                کتابخانه Supabase بارگذاری نشد.
-            </div>
-        `;
-
-    }
-
-};
-
 document.head.appendChild(supabaseScript);
 
 
@@ -58,7 +39,6 @@ document.head.appendChild(supabaseScript);
 ========================= */
 
 function initWebsite() {
-
 
     /* =========================
        WARRANTY CHECK
@@ -84,25 +64,15 @@ function initWebsite() {
 
                 event.preventDefault();
 
-
                 const serial =
-                    document
-                        .querySelector("#serial")
-                        .value
-                        .trim();
-
+                    document.querySelector("#serial")
+                        .value.trim();
 
                 const code =
-                    document
-                        .querySelector("#national")
-                        .value
-                        .trim();
+                    document.querySelector("#national")
+                        .value.trim();
 
-
-                warrantyResult.classList.add(
-                    "active"
-                );
-
+                warrantyResult.classList.add("active");
 
                 if (!serial || !code) {
 
@@ -113,9 +83,7 @@ function initWebsite() {
                     `;
 
                     return;
-
                 }
-
 
                 warrantyResult.innerHTML = `
                     <strong style="color:#e5c45a;">
@@ -138,23 +106,14 @@ function initWebsite() {
             ".cart-service input"
         );
 
-
     const cartCount =
-        document.querySelector(
-            "#cartCount"
-        );
-
+        document.querySelector("#cartCount");
 
     const continueCart =
-        document.querySelector(
-            "#continueCart"
-        );
-
+        document.querySelector("#continueCart");
 
     const cartResult =
-        document.querySelector(
-            "#cartResult"
-        );
+        document.querySelector("#cartResult");
 
 
     function getSelectedServices() {
@@ -174,10 +133,8 @@ function initWebsite() {
 
         if (!cartCount) return;
 
-
         const selected =
             getSelectedServices();
-
 
         cartCount.textContent =
             `${selected.length.toLocaleString("fa-IR")} مورد`;
@@ -203,21 +160,17 @@ function initWebsite() {
 
                 event.preventDefault();
 
-
                 const selected =
                     getSelectedServices();
 
 
-                if (
-                    selected.length === 0
-                ) {
+                if (selected.length === 0) {
 
                     if (cartResult) {
 
                         cartResult.classList.add(
                             "active"
                         );
-
 
                         cartResult.innerHTML = `
                             <span style="color:#e5c45a;">
@@ -228,7 +181,6 @@ function initWebsite() {
                     }
 
                     return;
-
                 }
 
 
@@ -260,18 +212,15 @@ function initWebsite() {
             "#selectedServices"
         );
 
-
     const checkoutCount =
         document.querySelector(
             "#checkoutCount"
         );
 
-
     const checkoutForm =
         document.querySelector(
             "#checkoutForm"
         );
-
 
     const checkoutResult =
         document.querySelector(
@@ -308,9 +257,7 @@ function initWebsite() {
         }
 
 
-        if (
-            selectedServices.length === 0
-        ) {
+        if (selectedServices.length === 0) {
 
             selectedServicesBox.innerHTML = `
                 <div class="empty-cart">
@@ -324,7 +271,6 @@ function initWebsite() {
                 selectedServices
                     .map(
                         service => `
-
                             <div class="selected-service-item">
 
                                 <span class="selected-service-icon">
@@ -336,7 +282,6 @@ function initWebsite() {
                                 </span>
 
                             </div>
-
                         `
                     )
                     .join("");
@@ -364,43 +309,25 @@ function initWebsite() {
 
                 const name =
                     document
-                        .querySelector(
-                            "#checkoutName"
-                        )
-                        ?.value
-                        .trim();
-
+                        .querySelector("#checkoutName")
+                        ?.value.trim();
 
                 const phone =
                     document
-                        .querySelector(
-                            "#checkoutPhone"
-                        )
-                        ?.value
-                        .trim();
-
+                        .querySelector("#checkoutPhone")
+                        ?.value.trim();
 
                 const serial =
                     document
-                        .querySelector(
-                            "#checkoutSerial"
-                        )
-                        ?.value
-                        .trim();
+                        .querySelector("#checkoutSerial")
+                        ?.value.trim();
 
 
-                /* =========================
-                   VALIDATION
-                ========================= */
-
-                if (
-                    selectedServices.length === 0
-                ) {
+                if (selectedServices.length === 0) {
 
                     checkoutResult.classList.add(
                         "active"
                     );
-
 
                     checkoutResult.innerHTML = `
                         <span style="color:#e5c45a;">
@@ -413,16 +340,11 @@ function initWebsite() {
                 }
 
 
-                if (
-                    !name ||
-                    !phone ||
-                    !serial
-                ) {
+                if (!name || !phone || !serial) {
 
                     checkoutResult.classList.add(
                         "active"
                     );
-
 
                     checkoutResult.innerHTML = `
                         <span style="color:#e5c45a;">
@@ -435,10 +357,6 @@ function initWebsite() {
                 }
 
 
-                /* =========================
-                   GENERATE TRACKING CODE
-                ========================= */
-
                 const randomNumber =
                     Math.floor(
                         100000 +
@@ -449,10 +367,6 @@ function initWebsite() {
                 const trackingCode =
                     "ATK-" + randomNumber;
 
-
-                /* =========================
-                   LOADING
-                ========================= */
 
                 checkoutResult.classList.add(
                     "active"
@@ -465,29 +379,6 @@ function initWebsite() {
                     </span>
                 `;
 
-
-                /* =========================
-                   CHECK SUPABASE
-                ========================= */
-
-                if (
-                    !window.supabaseClient
-                ) {
-
-                    checkoutResult.innerHTML = `
-                        <div style="color:#e5c45a;">
-                            اتصال به Supabase برقرار نشد.
-                        </div>
-                    `;
-
-                    return;
-
-                }
-
-
-                /* =========================
-                   INSERT
-                ========================= */
 
                 try {
 
@@ -528,10 +419,6 @@ function initWebsite() {
                     }
 
 
-                    /* =========================
-                       SAVE LOCAL DATA
-                    ========================= */
-
                     localStorage.setItem(
                         "trackingCode",
                         trackingCode
@@ -569,10 +456,6 @@ function initWebsite() {
                     );
 
 
-                    /* =========================
-                       SUCCESS
-                    ========================= */
-
                     window.location.assign(
                         "success.html"
                     );
@@ -586,39 +469,311 @@ function initWebsite() {
                     );
 
 
-                    const errorMessage =
-                        error?.message ||
-                        error?.details ||
-                        error?.hint ||
-                        "Unknown error";
-
-
                     checkoutResult.innerHTML = `
 
                         <div style="
                             color:#e5c45a;
-                            font-size:13px;
                             font-weight:700;
-                            margin-bottom:10px;
                         ">
-                            خطای اتصال
+                            خطای ثبت درخواست
+                        </div>
+
+                        <div style="
+                            margin-top:10px;
+                            color:#aaa;
+                            direction:ltr;
+                            text-align:left;
+                            word-break:break-word;
+                            font-size:10px;
+                        ">
+                            ${error?.message || "Unknown error"}
+                        </div>
+
+                    `;
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* =========================
+       REQUEST TRACKING
+    ========================= */
+
+    const trackingForm =
+        document.querySelector(
+            "#trackingForm"
+        );
+
+    const trackingResult =
+        document.querySelector(
+            "#trackingResult"
+        );
+
+
+    if (
+        trackingForm &&
+        trackingResult
+    ) {
+
+        trackingForm.addEventListener(
+            "submit",
+            async event => {
+
+                event.preventDefault();
+
+
+                const trackingCode =
+                    document
+                        .querySelector(
+                            "#trackingCode"
+                        )
+                        ?.value
+                        .trim()
+                        .toUpperCase();
+
+
+                trackingResult.classList.add(
+                    "active"
+                );
+
+
+                if (!trackingCode) {
+
+                    trackingResult.innerHTML = `
+                        <span style="color:#e5c45a;">
+                            لطفاً کد پیگیری را وارد کنید.
+                        </span>
+                    `;
+
+                    return;
+
+                }
+
+
+                trackingResult.innerHTML = `
+                    <span style="color:#e5c45a;">
+                        در حال جستجوی درخواست...
+                    </span>
+                `;
+
+
+                try {
+
+                    const {
+                        data,
+                        error
+                    } =
+                        await window.supabaseClient
+                            .rpc(
+                                "get_warranty_request",
+                                {
+                                    p_tracking_code:
+                                        trackingCode
+                                }
+                            );
+
+
+                    if (error) {
+
+                        throw error;
+
+                    }
+
+
+                    if (
+                        !data ||
+                        data.length === 0
+                    ) {
+
+                        trackingResult.innerHTML = `
+                            <div style="
+                                color:#e5c45a;
+                                font-weight:700;
+                            ">
+                                درخواست پیدا نشد.
+                            </div>
+
+                            <div style="
+                                margin-top:8px;
+                                color:#777;
+                            ">
+                                کد پیگیری را بررسی کنید.
+                            </div>
+                        `;
+
+                        return;
+
+                    }
+
+
+                    const request =
+                        data[0];
+
+
+                    const services =
+                        Array.isArray(
+                            request.services
+                        )
+                            ? request.services
+                            : [];
+
+
+                    trackingResult.innerHTML = `
+
+                        <div style="
+                            text-align:right;
+                            line-height:2;
+                        ">
+
+                            <div style="
+                                color:#e5c45a;
+                                font-size:15px;
+                                font-weight:700;
+                                margin-bottom:12px;
+                            ">
+                                ✓ درخواست شما پیدا شد
+                            </div>
+
+
+                            <div style="
+                                border-bottom:1px solid #292929;
+                                padding:7px 0;
+                            ">
+                                <span style="color:#777;">
+                                    نام:
+                                </span>
+
+                                <strong>
+                                    ${request.name}
+                                </strong>
+                            </div>
+
+
+                            <div style="
+                                border-bottom:1px solid #292929;
+                                padding:7px 0;
+                            ">
+                                <span style="color:#777;">
+                                    شماره تماس:
+                                </span>
+
+                                <strong>
+                                    ${request.phone}
+                                </strong>
+                            </div>
+
+
+                            <div style="
+                                border-bottom:1px solid #292929;
+                                padding:7px 0;
+                            ">
+                                <span style="color:#777;">
+                                    سریال قطعه:
+                                </span>
+
+                                <strong>
+                                    ${request.serial}
+                                </strong>
+                            </div>
+
+
+                            <div style="
+                                border-bottom:1px solid #292929;
+                                padding:7px 0;
+                            ">
+                                <span style="color:#777;">
+                                    کد پیگیری:
+                                </span>
+
+                                <strong style="
+                                    color:#e5c45a;
+                                ">
+                                    ${request.tracking_code}
+                                </strong>
+                            </div>
+
+
+                            <div style="
+                                padding:10px 0 0;
+                            ">
+
+                                <span style="color:#777;">
+                                    خدمات:
+                                </span>
+
+                                <div style="
+                                    margin-top:6px;
+                                    color:#ddd;
+                                ">
+
+                                    ${
+                                        services
+                                            .map(
+                                                service => `
+                                                    <div>
+                                                        ✓ ${service}
+                                                    </div>
+                                                `
+                                            )
+                                            .join("")
+                                    }
+
+                                </div>
+
+                            </div>
+
+
+                            <div style="
+                                margin-top:14px;
+                                padding:10px;
+                                background:#090909;
+                                border:1px solid #292929;
+                                color:#c9a227;
+                                text-align:center;
+                            ">
+                                وضعیت درخواست:
+                                ${request.status}
+                            </div>
+
+                        </div>
+
+                    `;
+
+
+                } catch (error) {
+
+                    console.error(
+                        "TRACKING ERROR:",
+                        error
+                    );
+
+
+                    trackingResult.innerHTML = `
+
+                        <div style="
+                            color:#e5c45a;
+                            font-weight:700;
+                        ">
+                            خطا در پیگیری درخواست
                         </div>
 
 
                         <div style="
-                            margin-top:8px;
-                            padding:12px;
+                            margin-top:10px;
+                            padding:10px;
                             background:#090909;
                             border:1px solid #292929;
                             color:#aaa;
                             direction:ltr;
                             text-align:left;
                             word-break:break-word;
-                            line-height:1.8;
-                            font-family:monospace;
                             font-size:10px;
                         ">
-                            ${errorMessage}
+                            ${error?.message || "Unknown error"}
                         </div>
 
                     `;
